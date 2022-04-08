@@ -1,0 +1,15 @@
+.env.*
+.gitignore
+.dockerignore
+.eslintrc
+nodemon.json
+Makefile
+Dockerfile
+README.md
+sonar-*
+.git/
+tests/
+coverage/
+documentation
+docs
+
