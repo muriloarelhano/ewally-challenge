@@ -1,16 +1,16 @@
 import { context } from '../context';
-import rest from './rest';
+import express from './express';
 import { config } from 'dotenv';
 config();
 
-const server = (restServer: any) => {
+const server = (expressServer: any) => {
   const restPort = process.env.REST_PORT || 3000;
 
   return () => {
-    restServer.listen(restPort, () => {
+    expressServer.listen(restPort, () => {
       global.console.log(`Rest server ready at http://localhost:${restPort}`);
     });
   };
 };
 
-server(rest(context))();
+server(express(context))();
