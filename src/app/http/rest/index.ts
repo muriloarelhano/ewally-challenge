@@ -21,12 +21,12 @@ export default (context: AppContext) => {
   }
 
   /*This function is used to kubernetes liveness probe */
-  server.get('/rest/ping', (_req: Request, res: Response) => {
+  server.get('/ping', (_req: Request, res: Response) => {
     res.status(200).send('pong');
   });
 
   /* istanbul ignore next */
-  server.use('/rest', router(context));
+  server.use('/ticket', router(context));
 
   return server;
 };

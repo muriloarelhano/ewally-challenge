@@ -5,6 +5,7 @@ import BaseController from './BaseController';
 export class TicketController extends BaseController {
   private readonly ticketService = new TicketService(this.repository);
   getTicketByCode(payload: TicketPayload) {
+    console.log(payload)
     return this.ticketService.getTicketByCode(payload.code);
   }
 }
