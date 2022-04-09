@@ -1,3 +1,6 @@
-export class TicketRepository{
-    
+export class TicketRepository {
+  select() {}
+  create() {}
+  update() {}
+  delete() {}
 }

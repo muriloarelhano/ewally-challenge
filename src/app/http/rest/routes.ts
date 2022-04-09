@@ -1,14 +1,15 @@
 import { Router } from 'express';
-import { TicketController } from 'src/controllers/TicketController';
+import { TicketController } from '../../../controllers/TicketController';
+import { AppContext } from '../../../interfaces';
 import { ExpressAdapter } from '../../../adapters/ExpressAdapter';
 
 const router = Router();
 
-export default ({ repository, cache }: any) => {
-  const ticketController = new TicketController(repository, cache);
+export default ({ repository, cache }: AppContext) => {
+  const ticketController = new TicketController(repository.ticket, cache);
 
   router.get(
-    '',
+    '/:code',
     ExpressAdapter.perform(
       ticketController.getTicketByCode.bind(ticketController),
     ),

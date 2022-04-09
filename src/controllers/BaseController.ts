@@ -1,8 +1,8 @@
-import { RepositoryInterface } from '../interfaces'
+import { TicketRepository } from '../app/repositories/TicketRepository';
 
 export default abstract class BaseController {
   constructor(
-    protected readonly repository: RepositoryInterface,
-    protected readonly cache: Cache,
+    protected readonly repository: TicketRepository,
+    protected readonly cache: any,
   ) {}
 }

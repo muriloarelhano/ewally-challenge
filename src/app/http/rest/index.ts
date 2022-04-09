@@ -1,13 +1,14 @@
-import express, { Request, Response } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import router from './routes';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import helmet from 'helmet';
-import cors from 'cors';
-import router from './routes';
+import { AppContext } from '../../../interfaces';
+import express, { Request, Response } from 'express';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export default (context: any) => {
+export default (context: AppContext) => {
   const server = express();
 
   server.use(bodyParser.json());

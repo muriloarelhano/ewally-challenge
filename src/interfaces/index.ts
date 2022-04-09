@@ -1,5 +1,1 @@
-import RepositoryInterface from './RepositoryInterface'
-
-export {
-  RepositoryInterface,
-}
+export * from './Context';

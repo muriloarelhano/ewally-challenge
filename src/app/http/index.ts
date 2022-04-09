@@ -1,4 +1,4 @@
-import context from '../context';
+import { context } from '../context';
 import rest from './rest';
 import { config } from 'dotenv';
 config();
