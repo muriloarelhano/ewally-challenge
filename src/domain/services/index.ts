@@ -1,7 +1,4 @@
-import BaseService from './BaseService'
-import WelcomeService from './WelcomeService'
+import BaseService from './BaseService';
+export * from './TicketService'
 
-export {
-  BaseService,
-  WelcomeService,
-}
+export { BaseService };

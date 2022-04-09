@@ -1,7 +1,3 @@
-import BaseController from './BaseController'
-import WelcomeController from './WelcomeController'
+import BaseController from './BaseController';
 
-export {
-  BaseController,
-  WelcomeController,
-}
+export { BaseController };
