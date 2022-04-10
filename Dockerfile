@@ -1,11 +1,10 @@
 FROM node:lts-alpine
 
-WORKDIR /api
+WORKDIR /app
 
-COPY node_modules node_modules
-COPY dist .
+COPY . .
 
-RUN npm rebuild 
+RUN npm install --force && npm run build
 
 USER node
 
