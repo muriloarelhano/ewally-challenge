@@ -15,10 +15,10 @@ export default ({ repository, cache, logger }: AppContext) => {
 
   router.get(
     '/:code',
+    ExpressAdapter.performMiddleware(ValidationBarCode.validate),
     ExpressAdapter.perform(
       ticketController.getTicketByCode.bind(ticketController),
     ),
-    ExpressAdapter.perform(ValidationBarCode.validate),
   );
 
   return router;
