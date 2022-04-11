@@ -1,5 +1,5 @@
 import RedisMock from 'redis-mock';
-import { FakeRepository } from './repositories/FakeRepository';
+import { FakeRepository } from '../repositories/FakeRepository';
 
 export default {
   repository: {
