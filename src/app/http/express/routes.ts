@@ -15,7 +15,7 @@ export default ({ repository, cache, logger }: AppContext) => {
   const validationMiddleware = new ValidationBarCode();
 
   router.get(
-    '/:code',
+    '/:lineCode',
     ExpressAdapter.performMiddleware(
       validationMiddleware.validate.bind(validationMiddleware),
     ),

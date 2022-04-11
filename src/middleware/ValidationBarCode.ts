@@ -1,31 +1,21 @@
 import i18next from 'i18next';
 import { CodeTypes, TicketPayload } from '../domain/entities';
-import {
-  convertBarCodeFromLineCode,
-  getAmount,
-  getCodeBlocks,
-  getExpirationDate,
-} from '../utils';
+import { getCodeBlocks } from '../utils';
 
 export class ValidationBarCode {
   validate(payload: TicketPayload): void | never {
     //@ts-ignore
-    if (isNaN(payload.code) || payload.code.includes('.'))
+    if (isNaN(payload.lineCode) || payload.lineCode.includes('.'))
       throw new Error(i18next.t('error.string_not_allowed'));
 
-    if (!/^[0-9]{47}$/.test(payload.code))
+    if (!/^[0-9]{47}$/.test(payload.lineCode))
       throw new Error(i18next.t('error.line_invalid_format'));
 
-    this.validateTicket(payload);
-    console.log({
-      barCode: convertBarCodeFromLineCode(payload.code),
-      expirationDate: getExpirationDate(payload.code),
-      amount: getAmount(payload.code),
-    });
+    this.validateLineCode(payload);
   }
 
-  validateTicket(payload: TicketPayload): void | never {
-    const blocks = getCodeBlocks(payload.code, CodeTypes.line);
+  private validateLineCode(payload: TicketPayload): void | never {
+    const blocks = getCodeBlocks(payload.lineCode, CodeTypes.line);
 
     blocks.forEach((block, blockIndex) => {
       let sum: number = 0;
@@ -48,6 +38,4 @@ export class ValidationBarCode {
         throw new Error(i18next.t('error.check_digit'));
     });
   }
-
-  private validateAgreement() {}
 }

@@ -15,7 +15,7 @@ export interface TicketResponse {
 
 export interface TicketPayload {
   id?: string;
-  code: string;
+  lineCode: string;
   amount?: string;
   expirationDate?: string;
   barCode?: string;
@@ -36,17 +36,20 @@ export class Ticket extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
+  @Column({ name: 'line_code' })
+  lineCode: string;
+
+  @Column({ name: 'bar_code' })
+  barCode: string;
+
   @Column()
   amount: string;
 
   @Column({ name: 'expiration_date' })
   expirationDate: string;
 
-  @Column({ name: 'bar_code' })
-  barCode: string;
-
   @Column()
-  type: TicketTypes
+  type: TicketTypes;
 
   @CreateDateColumn()
   createdAt: Date;
