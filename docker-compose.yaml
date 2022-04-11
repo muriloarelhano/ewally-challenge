@@ -7,6 +7,10 @@ services:
       dockerfile: Dockerfile
     container_name: ewally-api
     image: ewally-api
+    environment:
+      NODE_ENV: development
+      APPLICATION_NAME: ewally-api
+      REST_PORT: 3000
     ports:
       - 3000:3000
     networks:
