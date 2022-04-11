@@ -1,27 +1,23 @@
+import i18next from 'i18next';
 import { DateTime } from 'luxon';
-import { CodeTypes, TicketPayload, TicketTypes } from '../domain/entities';
+import { TicketPayload, TicketTypes } from '../domain/entities';
 
 export const getCodeBlocks = (
   lineCode: TicketPayload['lineCode'],
-  codeType: CodeTypes,
+  codeType: TicketTypes,
 ): string[] => {
   let blocks: string[] = [];
   switch (codeType) {
-    case CodeTypes.line:
+    case TicketTypes.bank:
       blocks.push(lineCode.substring(0, 10));
       blocks.push(lineCode.substring(10, 21));
       blocks.push(lineCode.substring(22, 32));
       break;
-    case CodeTypes.bar:
-      blocks.push(lineCode.substring(0, 3));
-      blocks.push(lineCode.substring(3, 4));
-      blocks.push(lineCode.substring(lineCode.length - 14, lineCode.length));
-      blocks.push(lineCode.substring(4, 9));
-      blocks.push(lineCode.substring(10, 16));
-      blocks.push(lineCode.substring(16, 20));
-      blocks.push(lineCode.substring(21, 23));
-      blocks.push(lineCode.substring(23, 30));
-      blocks.push(lineCode.substring(30, 31));
+    case TicketTypes.agreement:
+      blocks.push(lineCode.substring(0, 12));
+      blocks.push(lineCode.substring(12, 24));
+      blocks.push(lineCode.substring(24, 26));
+      blocks.push(lineCode.substring(26));
       break;
   }
 
@@ -43,11 +39,11 @@ export const convertBarCodeFromLineCode = (
     lineCode.substring(30, 31);
 
   const code = barCode.split('');
-  code.splice(4, 0, generateBarCodeCheckDigit(barCode));
+  code.splice(4, 0, mod11(barCode));
   return code.join('');
 };
 
-export const generateBarCodeCheckDigit = (barCode: string): string => {
+export const mod11 = (barCode: string): string => {
   const numbers: string[] = barCode.split('');
   let sum = 0;
   let multiplier = 2;
@@ -61,6 +57,31 @@ export const generateBarCodeCheckDigit = (barCode: string): string => {
   if (result == 10) result = 1;
   if (result == 11) result = 1;
   return String(result);
+};
+
+export const mod10 = (code: string, codeType: TicketTypes): void | never => {
+  const blocks = getCodeBlocks(code, codeType);
+
+  blocks.forEach((block, blockIndex) => {
+    let sum: number = 0;
+    const numbers = block.split('');
+
+    numbers.forEach((number, index) => {
+      const multiplier = (index + blockIndex) % 2 == 0 ? 2 : 1;
+      const multipliedNumber = (Number(number) * multiplier).toString();
+
+      if (numbers.length - 1 != index) {
+        if (Number(multipliedNumber) > 9) {
+          sum += Number(multipliedNumber[0]) + Number(multipliedNumber[1]);
+        } else {
+          sum += Number(multipliedNumber);
+        }
+      }
+    });
+    const dv = (Math.ceil(sum / 10) * 10 - (sum % 10)).toString()[1];
+    if (dv != block[block.length - 1])
+      throw new Error(i18next.t('error.check_digit'));
+  });
 };
 
 export const identifyTicketType = (): TicketTypes => {
