@@ -1,3 +1,7 @@
 {
-  "number_not_allowed": "Não são permitidos números nos dígitos verificadores do boleto"
+  "error": {
+    "string_not_allowed": "Não são permitidos caráteres nos números do boleto",
+    "line_invalid_format": "O código digitado informado, não está no formato correto",
+    "check_digit": "O digito verificador do boleto não é válido"
+  }
 }

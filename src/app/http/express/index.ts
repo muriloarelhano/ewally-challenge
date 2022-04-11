@@ -30,7 +30,7 @@ export default (context: AppContext) => {
   server.use(
     '',
     (err: any, req: Request, resp: Response, next: NextFunction) => {
-      return resp.json({
+      return resp.status(400).json({
         message: err.message,
       });
     },

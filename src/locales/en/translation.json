@@ -1,3 +1,7 @@
 {
-  "number_not_allowed": "This route accept only number"
+  "error": {
+    "string_not_allowed": "This route accept only number",
+    "line_invalid_format": "The code you entered is not in the correct format",
+    "check_digit": "The check digit of the ticket is not valid"
+  }
 }

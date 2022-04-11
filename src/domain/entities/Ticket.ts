@@ -21,6 +21,16 @@ export interface TicketPayload {
   barCode?: string;
 }
 
+export enum TicketTypes {
+  bank = 'bank',
+  agreement = 'agreement',
+}
+
+export enum CodeTypes {
+  line = 'line',
+  bar = 'bar',
+}
+
 @Entity()
 export class Ticket extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -34,6 +44,9 @@ export class Ticket extends BaseEntity {
 
   @Column({ name: 'bar_code' })
   barCode: string;
+
+  @Column()
+  type: TicketTypes
 
   @CreateDateColumn()
   createdAt: Date;

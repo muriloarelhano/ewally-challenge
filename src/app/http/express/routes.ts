@@ -12,10 +12,13 @@ export default ({ repository, cache, logger }: AppContext) => {
     cache,
     logger,
   );
+  const validationMiddleware = new ValidationBarCode();
 
   router.get(
     '/:code',
-    ExpressAdapter.performMiddleware(ValidationBarCode.validate),
+    ExpressAdapter.performMiddleware(
+      validationMiddleware.validate.bind(validationMiddleware),
+    ),
     ExpressAdapter.perform(
       ticketController.getTicketByCode.bind(ticketController),
     ),
