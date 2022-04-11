@@ -1,12 +1,22 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 info:
   title: API Ewally
-  version: '1.0.0'
+  version: "1.0.0"
 servers:
   - url: http://localhost:3000
 paths:
-  /boleto:
+  /ticket/:lineCode:
     get:
+      description: "Return information about ticket"
+      parameters:
+        - name: lineCode
+          in: path
+          required: true
+          schema:
+            type: string
+
       responses:
-        '200':
+        "200":
           description: OK
+        "400":
+          description: ERROR
