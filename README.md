@@ -2,13 +2,17 @@
 
 ## Architecture
 
-The hexagonal architecture, or ports and adapters architecture, is an architectural pattern used in software design. 
-It aims at creating loosely coupled application components that can be easily connected to their software environment by means of ports and adapters. 
+The hexagonal architecture, or ports and adapters architecture, is an architectural pattern used in software design.
+It aims at creating loosely coupled application components that can be easily connected to their software environment by means of ports and adapters.
 This makes components exchangeable at any level and facilitates test automation.
 
-## Key features 
+### Twelve Factor App
 
-* I18n translations 
+The project was designed following the standards of [The Twelve Factors](https://12factor.net/)
+
+## Key features
+
+- I18n translations
 
 # Running Application
 
@@ -22,16 +26,30 @@ Install dependencies with npm:
 
 > https://github.com/muriloarelhano/ewally-challenge.git
 
-
 ## Docker
 
 to run the application with docker, clone the project on your machine, as in the previous tutorial, now just run docker-compose command:
 
 > docker-compose up -d
 
-after the docker image has finished building and the application is running inside the container, call the API from 
+after the docker image has finished building and the application is running inside the container, call the API from
 
-> http://localhost:3000/ticket/:code
+> http://localhost:3000/ticket/:lineCode
+
+# API
+
+To use API just call route with `GET` method:
+
+> http://localhost:3000/ticket/:lineCode
+
+where `lineCode` is code of "Linha Digitável"
+
+# Tests
+
+This project has configured for accept 70% of code coverage, just run jest command
+to execute unit tests:
+
+> npm run test
 
 ### Extra documentation
 
