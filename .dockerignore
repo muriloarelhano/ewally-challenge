@@ -10,3 +10,4 @@ Dockerfile
 nodemon.json
 documentation
 .dockerignore
+dist/
