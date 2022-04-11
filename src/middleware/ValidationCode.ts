@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import { CodeTypes, TicketPayload } from '../domain/entities';
 import { getCodeBlocks } from '../utils';
 
-export class ValidationBarCode {
+export class ValidationCode {
   validate(payload: TicketPayload): void | never {
     //@ts-ignore
     if (isNaN(payload.lineCode) || payload.lineCode.includes('.'))

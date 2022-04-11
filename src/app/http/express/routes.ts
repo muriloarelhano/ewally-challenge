@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { TicketController } from '../../../controllers/TicketController';
 import { AppContext } from '../../../interfaces';
 import { ExpressAdapter } from '../../../adapters/ExpressAdapter';
-import { ValidationBarCode } from '../../../middleware/ValidationBarCode';
+import { ValidationCode } from '../../../middleware/ValidationCode';
 
 const router = Router();
 
@@ -12,7 +12,7 @@ export default ({ repository, cache, logger }: AppContext) => {
     cache,
     logger,
   );
-  const validationMiddleware = new ValidationBarCode();
+  const validationMiddleware = new ValidationCode();
 
   router.get(
     '/:lineCode',
