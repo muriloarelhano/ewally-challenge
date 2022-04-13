@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { TicketPayload, TicketTypes } from '../domain/entities';
-import { mod10 } from '../utils';
+import { getAgBarCodeFromLineCode, mod10, mod11Ag } from '../utils';
 
 export class ValidationCode {
   validate(payload: TicketPayload): void | never {
@@ -19,9 +19,28 @@ export class ValidationCode {
   }
 
   private validateBankTicket(payload: TicketPayload): void | never {
-    mod10(payload.lineCode, TicketTypes.bank);
+    mod10(payload.lineCode, TicketTypes.bank, (dv, block) => {
+      if (dv != block[block.length - 1])
+        throw new Error(i18next.t('error.check_digit'));
+    });
   }
+
   private validateAgreementTicket(payload: TicketPayload): void | never {
-    mod10(payload.lineCode, TicketTypes.agreement);
+    if (payload.lineCode[0] !== '8')
+      throw new Error(i18next.t('error.invalid_agreement_first_number'));
+
+    const barCode = getAgBarCodeFromLineCode(payload.lineCode);
+
+    if (payload.lineCode[2] === '6' || payload.lineCode[2] === '7') {
+      mod10(barCode, TicketTypes.agreement, (dv, block) => {
+        if (dv != block[block.length - 1])
+          throw new Error(i18next.t('error.check_digit'));
+      });
+    } else if (payload.lineCode[2] === '8' || payload.lineCode[2] === '9') {
+      mod11Ag(barCode, (dv: string) => {
+        if (!(dv === barCode[3]))
+          throw new Error(i18next.t('error.check_digit'));
+      });
+    }
   }
 }

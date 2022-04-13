@@ -24,7 +24,6 @@ describe('Testing Validation Code Middleware', () => {
         },
         lng: 'pt',
         fallbackLng: 'pt',
-        load: 'languageOnly',
       },
       (err, t) => {
         i18next.changeLanguage('pt');
@@ -60,5 +59,23 @@ describe('Testing Validation Code Middleware', () => {
     expect(() => {
       validationMiddleware.validate(mockPayload);
     }).toThrowError(i18next.t('error.check_digit'));
+  });
+
+  it('Should not return any error with agreement code type', () => {
+    mockPayload = {
+      lineCode: '21290001192110001210904475617405975870000002000',
+    };
+    expect(() => {
+      validationMiddleware.validate(mockPayload);
+    }).not.toThrowError();
+  });
+
+  it('Should not return any error with bank code type', () => {
+    mockPayload = {
+      lineCode: '21290001192110001210904475617405975870000002000',
+    };
+    expect(() => {
+      validationMiddleware.validate(mockPayload);
+    }).not.toThrowError();
   });
 });

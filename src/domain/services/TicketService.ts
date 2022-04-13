@@ -1,5 +1,5 @@
 import {
-  convertBarCodeFromLineCode,
+  getBankBarCodeFromLineCode,
   getAmount,
   getExpirationDate,
 } from '../../utils';
@@ -9,7 +9,7 @@ export class TicketService extends BaseService {
   getTicketByCode(lineCode: string) {
     return {
       lineCode,
-      barCode: convertBarCodeFromLineCode(lineCode),
+      barCode: getBankBarCodeFromLineCode(lineCode),
       amount: getAmount(lineCode),
       expirationDate: getExpirationDate(lineCode),
     };
