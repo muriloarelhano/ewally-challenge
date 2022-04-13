@@ -1,7 +1,6 @@
 import { context } from '../context';
 import express from './express';
 import { config } from 'dotenv';
-import '../database'
 config();
 
 const server = (expressServer: any) => {
