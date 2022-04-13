@@ -6,12 +6,8 @@ import { ValidationCode } from '../../../middleware/ValidationCode';
 
 const router = Router();
 
-export default ({ repository, cache, logger }: AppContext) => {
-  const ticketController = new TicketController(
-    repository.ticket,
-    cache,
-    logger,
-  );
+export default ({ cache, logger }: AppContext) => {
+  const ticketController = new TicketController(cache, logger);
   const validationMiddleware = new ValidationCode();
 
   router.get(

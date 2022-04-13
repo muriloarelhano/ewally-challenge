@@ -1,10 +1,7 @@
-import { TicketRepository } from '../app/repositories/TicketRepository';
 import { Logger } from 'winston';
 
 export interface AppContext {
-  repository: {
-    ticket: TicketRepository;
-  };
+  repository: {};
   logger: Logger;
   cache: any;
 }
