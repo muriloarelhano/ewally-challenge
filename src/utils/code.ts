@@ -1,9 +1,10 @@
+import i18next from 'i18next';
 import { DateTime } from 'luxon';
 import { TicketPayload, TicketTypes } from '../domain/entities';
 import { mod11 } from './module';
 
 export const getCodeBlocks = (
-  lineCode: TicketPayload['lineCode'],
+  lineCode: string,
   codeType: TicketTypes,
 ): string[] => {
   let blocks: string[] = [];
@@ -24,9 +25,7 @@ export const getCodeBlocks = (
   return blocks;
 };
 
-export const getBankBarCodeFromLineCode = (
-  lineCode: TicketPayload['lineCode'],
-): string => {
+export const getBankBarCodeFromLineCode = (lineCode: string): string => {
   let barCode =
     lineCode.substring(0, 3) +
     lineCode.substring(3, 4) +
@@ -45,9 +44,7 @@ export const getBankBarCodeFromLineCode = (
   return code.join('');
 };
 
-export const getAgBarCodeFromLineCode = (
-  lineCode: TicketPayload['lineCode'],
-): string => {
+export const getAgBarCodeFromLineCode = (lineCode: string): string => {
   let barCode = '';
   for (let index = 0; index < 4; index++) {
     const start = 11 * index + index;
@@ -57,17 +54,35 @@ export const getAgBarCodeFromLineCode = (
   return barCode;
 };
 
-export const getExpirationDate = (
-  lineCode: TicketPayload['lineCode'],
-): string => {
+export const getExpirationDate = (lineCode: string): string => {
   var expiration: string = lineCode.slice(33, 37);
   var date = new Date('10/07/1997');
   date.setTime(date.getTime() + Number(expiration) * 24 * 60 * 60 * 1000);
   return DateTime.fromJSDate(date).toFormat('yyyy-MM-dd');
 };
 
-export const getAmount = (lineCode: TicketPayload['lineCode']): string => {
-  return (
-    parseFloat(lineCode.substring(lineCode.length - 10, lineCode.length)) / 100
-  ).toFixed(2);
+export const identifyTicketCodeType = (lineCode: string) => {
+  if (/^[0-9]{47}$/.test(lineCode)) {
+    return TicketTypes.bank;
+  } else if (/^[0-9]{48}$/.test(lineCode)) {
+    return TicketTypes.agreement;
+  } else {
+    throw new Error(i18next.t('error.line_invalid_format'));
+  }
+};
+
+export const getAmount = (lineCode: string, type: TicketTypes): string => {
+  switch (type) {
+    case TicketTypes.bank:
+      return (
+        parseFloat(lineCode.substring(lineCode.length - 10, lineCode.length)) /
+        100
+      ).toFixed(2);
+      break;
+    case TicketTypes.agreement:
+      return (
+        parseFloat(getAgBarCodeFromLineCode(lineCode).substring(4, 15)) / 100
+      ).toFixed(2);
+      break;
+  }
 };

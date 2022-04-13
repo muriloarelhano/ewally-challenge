@@ -13,6 +13,8 @@ The project was designed following the standards of [The Twelve Factors](https:/
 ## Key features
 
 - I18n translations
+- Get code bar, amount and expiration date from line code
+- Cache information by line code consult
 
 # Running Application
 
