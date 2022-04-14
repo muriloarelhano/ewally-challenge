@@ -1,7 +1,7 @@
-import { context } from '../context';
-import express from './express';
 import { config } from 'dotenv';
 config();
+import express from './express';
+import { context } from '../context';
 
 const server = (expressServer: any) => {
   const restPort = process.env.REST_PORT || 3000;

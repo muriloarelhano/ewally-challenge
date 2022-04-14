@@ -5,8 +5,8 @@ describe('Testing Ticket Controller...', () => {
   const ticketController = new TicketController(context.logger, context.cache);
   const exampleBankLineCode = '21290001192110001210904475617405975870000002000';
   const exampleAgLineCode = '858900004609524601791605607593050865831483000010';
-  it('Should return correct values when consult bank line code', () => {
-    const response = ticketController.getTicketByCode({
+  it('Should return correct values when consult bank line code', async () => {
+    const response = await ticketController.getTicketByCode({
       lineCode: exampleBankLineCode,
     });
     expect(response).toHaveProperty('barCode');
@@ -19,8 +19,8 @@ describe('Testing Ticket Controller...', () => {
     expect(response).toHaveProperty('expirationDate');
   });
 
-  it('Should return correct values when consult agreement line code', () => {
-    const response = ticketController.getTicketByCode({
+  it('Should return correct values when consult agreement line code', async () => {
+    const response = await ticketController.getTicketByCode({
       lineCode: exampleAgLineCode,
     });
     expect(response).toHaveProperty('barCode');
