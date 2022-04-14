@@ -26,7 +26,7 @@ First, install NodeJs in your machine, [Nodejs Official Download](https://nodejs
 
 Install dependencies with npm:
 
-> https://github.com/muriloarelhano/ewally-challenge.git
+> npm install
 
 ## Docker
 
