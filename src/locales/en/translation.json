@@ -1,0 +1,8 @@
+{
+  "error": {
+    "string_not_allowed": "This route accept only number",
+    "line_invalid_format": "The code you entered is not in the correct format",
+    "check_digit": "The check digit of the ticket is not valid",
+    "invalid_agreement_first_number": "Only codes starting with the number 8 are accepted for this type of ticket type."
+  }
+}

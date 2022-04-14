@@ -1,8 +1,8 @@
-import { TicketRepository } from '../app/repositories/TicketRepository';
+import { Logger } from 'winston';
 
 export default abstract class BaseController {
   constructor(
-    protected readonly repository: TicketRepository,
+    protected readonly logger: Logger,
     protected readonly cache: any,
   ) {}
 }

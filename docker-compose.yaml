@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ewally-api
+    image: ewally-api
+    environment:
+      NODE_ENV: development
+      APPLICATION_NAME: ewally-api
+      REST_PORT: 3000
+      CACHE_HOST: redis
+      CACHE_PORT: 6379
+    ports:
+      - 3000:3000
+    networks:
+      - ewally-api
+
+  redis:
+    image: redis
+    depends_on:
+     - api
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./temp/cache:/data
+    networks:
+      - ewally-api
+
+networks:
+  ewally-api:

@@ -1,10 +1,9 @@
-import Redis from 'redis';
 import { AppContext } from '../interfaces';
-import { TicketRepository } from './repositories/TicketRepository';
+import { logger } from './logger';
+import { redisClient } from './cache';
 
 export const context: AppContext = {
-  repository: {
-    ticket: new TicketRepository(),
-  },
-  cache: Redis,
+  repository: {},
+  logger,
+  cache: redisClient,
 };

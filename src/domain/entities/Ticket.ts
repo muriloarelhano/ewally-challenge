@@ -1,26 +1,25 @@
-import { Column, Entity, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
 export interface TicketResponse {
   status: number;
   amount: string;
   expirationDate: string;
   barCode: string;
+  createdAt: string;
 }
 
 export interface TicketPayload {
-  code: string;
+  id?: string;
+  lineCode: string;
+  amount?: string;
+  expirationDate?: string;
+  barCode?: string;
 }
 
-@Entity()
-export class Ticket extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+export enum TicketTypes {
+  bank = 'bank',
+  agreement = 'agreement',
+}
 
-  @Column()
-  amount: string;
-
-  @Column()
-  expirationDate: string;
-
-  @Column()
-  barCode: string;
+export enum CodeTypes {
+  line = 'line',
+  bar = 'bar',
 }

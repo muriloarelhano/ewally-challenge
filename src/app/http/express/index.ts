@@ -4,7 +4,8 @@ import router from './routes';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import { AppContext } from '../../../interfaces';
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+import { i18nHandler } from '../../i18n';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -13,20 +14,27 @@ export default (context: AppContext) => {
 
   server.use(bodyParser.json());
   server.use(compression());
+  server.use(i18nHandler);
 
-  /* istanbul ignore next */
   if (isProd) {
     server.use(cors());
     server.use(helmet());
   }
 
-  /*This function is used to kubernetes liveness probe */
-  server.get('/rest/ping', (_req: Request, res: Response) => {
+  server.get('/ping', (_req: Request, res: Response) => {
     res.status(200).send('pong');
   });
 
-  /* istanbul ignore next */
-  server.use('/rest', router(context));
+  server.use('/ticket', router(context));
+
+  server.use(
+    '',
+    (err: any, req: Request, resp: Response, next: NextFunction) => {
+      return resp.status(400).json({
+        message: err.message,
+      });
+    },
+  );
 
   return server;
 };
