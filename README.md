@@ -18,6 +18,16 @@ The project was designed following the standards of [The Twelve Factors](https:/
 
 # Running Application
 
+## Docker (Recommended)
+
+to run the application with docker, clone the project on your machine, as in the previous tutorial, now just run docker-compose command:
+
+> docker-compose up -d
+
+after the docker image has finished building and the application is running inside the container, call the API from
+
+> http://localhost:3000/ticket/:lineCode
+
 ## Nodejs on machine
 
 First, install NodeJs in your machine, [Nodejs Official Download](https://nodejs.org/en/download/), clone this project with:
@@ -31,16 +41,6 @@ Install dependencies with npm and run application in development mode:
 > npm run start:dev
 
 OBS: You need run redis in docker container without password and running with default port () to connect
-
-## Docker (Recommended)
-
-to run the application with docker, clone the project on your machine, as in the previous tutorial, now just run docker-compose command:
-
-> docker-compose up -d
-
-after the docker image has finished building and the application is running inside the container, call the API from
-
-> http://localhost:3000/ticket/:lineCode
 
 # API
 
