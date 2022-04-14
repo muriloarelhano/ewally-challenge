@@ -40,7 +40,7 @@ Install dependencies with npm and run application in development mode:
 
 > npm run start:dev
 
-OBS: You need run redis in docker container without password and running with default port () to connect
+OBS: You need to run redis in docker container, without password and running with default port (6379) to run application
 
 # API
 
