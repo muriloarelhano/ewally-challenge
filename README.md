@@ -24,11 +24,15 @@ First, install NodeJs in your machine, [Nodejs Official Download](https://nodejs
 
 > git clone https://github.com/muriloarelhano/ewally-challenge.git
 
-Install dependencies with npm:
+Install dependencies with npm and run application in development mode:
 
 > npm install
 
-## Docker
+> npm run start:dev
+
+OBS: You need run redis in docker container without password and running with default port () to connect
+
+## Docker (Recommended)
 
 to run the application with docker, clone the project on your machine, as in the previous tutorial, now just run docker-compose command:
 
